@@ -1,3 +1,4 @@
+const { Configuration, OpenAIApi } = require("openai");
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
@@ -23,6 +24,12 @@ const upload = multer({
     storage: storage,
     limits: { fileSize: 1024 * 1024 * 5 },
 });
+
+const configuration = new Configuration({
+    apiKey: "<YOUR_API_KEY>",
+});
+
+const openai = new OpenAIApi(configuration);
 
 app.post("/resume/create", upload.single("headshotImage"), async (req, res) => {
     const {
