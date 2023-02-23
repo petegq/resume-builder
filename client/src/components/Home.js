@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import Loading from './Loading'
 
 const Home = () => {
@@ -31,13 +32,23 @@ const Home = () => {
 
 	const handleFormSubmit = e => {
 		e.preventDefault()
-		console.log({
-			fullName,
-			currentPosition,
-			currentLength,
-			currentTechnologies,
-			headshot,
-		})
+
+		const formData = new FormData()
+		formData.append('headshotImage', headshot, headshot.name)
+		formData.append('fullName', fullName)
+		formData.append('currentPosition', currentPosition)
+		formData.append('currentLength', currentLength)
+		formData.append('currentTechnologies', currentTechnologies)
+		formData.append('workHistory', JSON.stringify(companyInfo))
+		axios
+			.post('http://localhost:4000/resume/create', formData, {})
+			.then(res => {
+				if (res.data.message) {
+					console.log(res.data.data)
+					navigate('/resume')
+				}
+			})
+			.catch(err => console.error(err))
 		setLoading(true)
 	}
 	//👇🏻 Renders the Loading component you submit the form
