@@ -51,8 +51,7 @@ const Home = () => {
 			<form
 				onSubmit={handleFormSubmit}
 				method='POST'
-				encType='multipart/form-data'
-			>
+				encType='multipart/form-data'>
 				<label htmlFor='fullName'>Enter your full name</label>
 				<input
 					type='text'
@@ -114,6 +113,47 @@ const Home = () => {
 					accept='image/x-png,image/jpeg'
 					onChange={e => setHeadshot(e.target.files[0])}
 				/>
+				<h3>Companies you've worked at</h3>
+				{companyInfo.map((company, index) => (
+					<div className='nestedContainer' key={index}>
+						<div className='companies'>
+							<label htmlFor='name'>Company Name</label>
+							<input
+								type='text'
+								name='name'
+								required
+								onChange={e => handleUpdateCompany(e, index)}
+							/>
+						</div>
+						<div className='companies'>
+							<label htmlFor='position'>Position Held</label>
+							<input
+								type='text'
+								name='position'
+								required
+								onChange={e => handleUpdateCompany(e, index)}
+							/>
+						</div>
+
+						<div className='btn__group'>
+							{companyInfo.length - 1 === index &&
+								companyInfo.length < 4 && (
+									<button
+										id='addBtn'
+										onClick={handleAddCompany}>
+										Add
+									</button>
+								)}
+							{companyInfo.length > 1 && (
+								<button
+									id='deleteBtn'
+									onClick={() => handleRemoveCompany(index)}>
+									Del
+								</button>
+							)}
+						</div>
+					</div>
+				))}
 				<button>CREATE RESUME</button>
 			</form>
 		</div>
