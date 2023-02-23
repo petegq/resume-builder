@@ -1,59 +1,59 @@
-const { Configuration, OpenAIApi } = require("openai");
-const express = require("express");
-const multer = require("multer");
-const path = require("path");
-const cors = require("cors");
-const app = express();
-const port = 4000;
+const { Configuration, OpenAIApi } = require('openai')
+const express = require('express')
+const multer = require('multer')
+const path = require('path')
+const cors = require('cors')
+const app = express()
+const port = 4000
 
-app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static("uploads"));
-app.use(express.json());
-app.use(cors());
+app.use(express.urlencoded({ extended: true }))
+app.use('/uploads', express.static('uploads'))
+app.use(express.json())
+app.use(cors())
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads");
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    },
-});
+	destination: (req, file, cb) => {
+		cb(null, 'uploads')
+	},
+	filename: (req, file, cb) => {
+		cb(null, Date.now() + path.extname(file.originalname))
+	},
+})
 
 const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1024 * 1024 * 5 },
-});
+	storage: storage,
+	limits: { fileSize: 1024 * 1024 * 5 },
+})
 
 const configuration = new Configuration({
-    apiKey: "<YOUR_API_KEY>",
-});
+	apiKey: '<YOUR_API_KEY>',
+})
 
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAIApi(configuration)
 
-app.post("/resume/create", upload.single("headshotImage"), async (req, res) => {
-    const {
-        fullName,
-        currentPosition,
-        currentLength,
-        currentTechnologies,
-        workHistory,
-    } = req.body;
+app.post('/resume/create', upload.single('headshotImage'), async (req, res) => {
+	const {
+		fullName,
+		currentPosition,
+		currentLength,
+		currentTechnologies,
+		workHistory,
+	} = req.body
 
-    console.log(req.body);
+	console.log(req.body)
 
-    res.json({
-        message: "Request successful!",
-        data: {},
-    });
-});
+	res.json({
+		message: 'Request successful!',
+		data: {},
+	})
+})
 
-app.get("/", (req, res) => {
-    res.json({ 
-        message: "Hello World",
-     });
-});
+app.get('/', (req, res) => {
+	res.json({
+		message: 'Hello World',
+	})
+})
 
 app.listen(port, () => {
-    console.log(`Server listening on ${port}`);
-});
+	console.log(`Server listening on ${port}`)
+})
