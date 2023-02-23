@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Loading from './Loading'
 
@@ -10,6 +11,7 @@ const Home = () => {
 	const [headshot, setHeadshot] = useState(null)
 	const [companyInfo, setCompanyInfo] = useState([{ name: '', position: '' }])
 	const [loading, setLoading] = useState(false)
+	const navigate = useNavigate()
 
 	//👇🏻 updates the state with user's input
 	const handleAddCompany = () =>
