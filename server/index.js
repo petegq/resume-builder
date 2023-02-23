@@ -24,6 +24,23 @@ const upload = multer({
     limits: { fileSize: 1024 * 1024 * 5 },
 });
 
+app.post("/resume/create", upload.single("headshotImage"), async (req, res) => {
+    const {
+        fullName,
+        currentPosition,
+        currentLength,
+        currentTechnologies,
+        workHistory,
+    } = req.body;
+
+    console.log(req.body);
+
+    res.json({
+        message: "Request successful!",
+        data: {},
+    });
+});
+
 app.get("/", (req, res) => {
     res.json({ 
         message: "Hello World",
