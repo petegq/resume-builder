@@ -46,7 +46,8 @@ const Home = () => {
 			.post('http://localhost:4000/resume/create', formData, {})
 			.then(res => {
 				if (res.data.message) {
-					console.log(res.data.data)
+					//👇🏻 updates the result object
+					setResult(res.data.data)
 					navigate('/resume')
 				}
 			})
