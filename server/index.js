@@ -1,17 +1,19 @@
 const { Configuration, OpenAIApi } = require('openai')
-require("dotenv").config();
+require('dotenv').config()
 const express = require('express')
 const multer = require('multer')
 const path = require('path')
 const cors = require('cors')
 const app = express()
 const port = 4000
-const OPENAI_API_KEY = require('./config').OPENAI_API_KEY
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 
 app.use(express.urlencoded({ extended: true }))
 app.use('/uploads', express.static('uploads'))
 app.use(express.json())
 app.use(cors())
+
+const generateID = () => Math.random().toString(36).substring(2, 10);
 
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
