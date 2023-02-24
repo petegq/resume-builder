@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Loading from './Loading'
 
-const Home = () => {
+const Home = ({setResult}) => {
 	const [fullName, setFullName] = useState('')
 	const [currentPosition, setCurrentPosition] = useState('')
 	const [currentLength, setCurrentLength] = useState(1)
